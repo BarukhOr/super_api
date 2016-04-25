@@ -4,15 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "dev0": "nodemon index.js"
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "cors": "^2.7.1",
     "express": "^4.13.4",
-    "http": "0.0.0",
     "jwt-simple": "^0.5.0",
     "mongoose": "^4.4.12",
     "morgan": "^1.7.0",
@@ -20,8 +20,5 @@
     "passport": "^0.3.2",
     "passport-jwt": "^2.0.0",
     "passport-local": "^1.0.0"
-  },
-  "dependencies": {
-    "multer": "^1.1.0"
   }
 }
