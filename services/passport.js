@@ -7,7 +7,6 @@ const config = require('../config')
 
 //Create local Strategy
 const localLogin = new LocalStrategy(function(username,password,done){
-	console.log("within the local Strategy")
 	//Verify that the email/password pair is correct, otherwise return false to done
 	User.findOne({username:username},function(err,user){
 		if(err){return done(err)}

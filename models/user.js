@@ -1,6 +1,7 @@
 const Mongoose = require('mongoose')
 const Schema = Mongoose.Schema
 
+
 //User Schema
 const userSchema = new Schema({
 	name:{
@@ -20,7 +21,7 @@ const userSchema = new Schema({
 	password:{
 		type:String
 	}
-},{collection:'user'})
+})
 
 
 userSchema.methods.comparePassword = function(candidatePassword,callback){
@@ -31,8 +32,10 @@ userSchema.methods.comparePassword = function(candidatePassword,callback){
 	}
 }
 
+
 //Create the model class
-const ModelClass = Mongoose.model('staff',userSchema)
+const ModelClass = Mongoose.model('user',userSchema)
+
 
 //Export the model
 module.exports = ModelClass
