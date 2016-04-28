@@ -11,8 +11,7 @@ const router = require('./routes/router');
 /*
 	Database Setup
 */
-mongoose.set('debug',true)
-mongoose.connect('mongodb://localhost:auth/auth');
+mongoose.set('debug',true);
 
 /*
 	App Setup
