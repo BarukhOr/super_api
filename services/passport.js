@@ -3,15 +3,22 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local');
 const ActiveDirectory = require('activedirectory');
+const mongoose = require('mongoose');
 
 const User = require('../models/user');
-const config = require('../config');
 
 //Store Mission Critical Secrets in this file
 const Config = require('../config');
 
 //Create local Strategy
 const localLogin = new LocalStrategy(function(username,password,done){
+	
+	// const db = mongoose.createConnection('mongodb://localhost/auth');
+	// db.open('localhost','auth')
+	// db.open()
+	// 
+	
+	
 	const localConfig = {
 		baseDN:Config.baseDN,
 		url:Config.ldap_url,
@@ -23,19 +30,21 @@ const localLogin = new LocalStrategy(function(username,password,done){
 
 	ad.authenticate(localConfig.username,localConfig.password,function(err,auth){
 		if (err) {return done(err)}
+		
 		if (auth){
+			mongoose.connect('mongodb://localhost/auth');
 			User.findOne({username:username},function(err,user){
+				mongoose.connection.close();
 				if (err) {return done(err)}
 				if (user){
-					return done(null,user)
+					return done(null,user);
 				}else{
-					console.log("user is a student, but is not a staff")
-					return done(null,false)
+					return done(null,false);
 				}
 			})
 		}else{
-			console.log("Authentication Failed")
-			return done(null,false)
+			console.log("Authentication Failed");
+			return done(null,false);
 		}
 
 	})
@@ -44,7 +53,7 @@ const localLogin = new LocalStrategy(function(username,password,done){
 //Create JWT Strategy
 const jwtOptions={
 	jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-	secretOrKey: config.secret
+	secretOrKey: Config.secret
 }
 
 const jwtLogin = new JwtStrategy(jwtOptions, function(payload,done){
