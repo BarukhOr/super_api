@@ -28,7 +28,7 @@ module.exports = function(app){
 		mongoose.connect('mongodb://localhost/graphic_requests');
 		
 		PrintRequests.getPrintRequests(function(err,printrequests){
-			console.log("Do it~",printrequests);
+			console.log("~Sucessful Query~");
 			mongoose.connection.close()
 			if(err){
 				throw err;
